@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useClientMounted } from "@/hooks/useClientMounted";
 import { ChevronDown, SlidersHorizontal, X } from "lucide-react";
 import type { ColorFamily } from "@/types/product";
 import {
@@ -36,7 +35,6 @@ export function FilterSidebar({
 
   const [brandsOpen, setBrandsOpen] = useState(true);
   const [colorsOpen, setColorsOpen] = useState(true);
-  const mounted = useClientMounted();
 
   const brands = getUniqueBrands(products);
   const activeColors = getActiveColorFamilies(products);
@@ -88,19 +86,13 @@ export function FilterSidebar({
                 <li key={brand}>
                   <div className="group flex items-center gap-1 rounded-lg hover:bg-[#fafafa]">
                     <label className="flex flex-1 cursor-pointer items-center gap-3 px-2 py-2">
-                      {mounted ? (
-                        <input
-                          type="checkbox"
-                          checked={checked}
-                          onChange={() => toggleBrand(brand)}
-                          className="h-4 w-4 rounded border-[#ddd] accent-[#ee4291]"
-                        />
-                      ) : (
-                        <span
-                          className="h-4 w-4 shrink-0 rounded border border-[#ddd] bg-white"
-                          aria-hidden
-                        />
-                      )}
+                      <input
+                        type="checkbox"
+                        checked={checked}
+                        onChange={() => toggleBrand(brand)}
+                        suppressHydrationWarning
+                        className="h-4 w-4 rounded border-[#ddd] accent-[#ee4291]"
+                      />
                       <span className="flex-1 text-sm font-medium">{brand}</span>
                       <span className="text-xs tabular-nums text-[#aaa]">
                         {count}
@@ -156,20 +148,14 @@ export function FilterSidebar({
                           : "hover:bg-[#fafafa]"
                       }`}
                     >
-                      {mounted ? (
-                        <input
-                          type="checkbox"
-                          checked={checked}
-                          disabled={disabled}
-                          onChange={() => toggleColor(color)}
-                          className="h-4 w-4 rounded border-[#ddd] accent-[#ee4291]"
-                        />
-                      ) : (
-                        <span
-                          className="h-4 w-4 shrink-0 rounded border border-[#ddd] bg-white"
-                          aria-hidden
-                        />
-                      )}
+                      <input
+                        type="checkbox"
+                        checked={checked}
+                        disabled={disabled}
+                        onChange={() => toggleColor(color)}
+                        suppressHydrationWarning
+                        className="h-4 w-4 rounded border-[#ddd] accent-[#ee4291]"
+                      />
                       <span
                         className="h-5 w-5 shrink-0 rounded-full border border-black/10"
                         style={

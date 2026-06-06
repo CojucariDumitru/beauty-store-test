@@ -8,8 +8,6 @@ import type { Product } from "@/types/product";
 import { COLOR_FAMILIES } from "@/lib/catalog";
 import { SimpleHeader } from "@/components/SimpleHeader";
 import { ShopOverlays } from "@/components/ShopOverlays";
-import { useClientMounted } from "@/hooks/useClientMounted";
-
 const DEFAULT_PASSWORD = "beauty-test";
 
 export default function AdminPage() {
@@ -18,7 +16,6 @@ export default function AdminPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const mounted = useClientMounted();
 
   const loadProducts = useCallback(async () => {
     const res = await fetch("/api/products");
@@ -98,29 +95,23 @@ export default function AdminPage() {
         <p className="mt-2 text-sm text-[#666]">
           Test password: <code className="rounded bg-[#fafafa] px-1">{DEFAULT_PASSWORD}</code>
         </p>
-        {mounted ? (
-          <form onSubmit={handleLogin} className="mt-6 space-y-4">
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Admin password"
-              autoComplete="current-password"
-              className="w-full rounded-xl border border-[#eee] px-4 py-3 outline-none focus:border-[#ee4291]"
-            />
-            <button
-              type="submit"
-              className="w-full rounded-xl bg-[#ee4291] py-3 font-semibold text-white"
-            >
-              Enter admin
-            </button>
-          </form>
-        ) : (
-          <div className="mt-6 space-y-4" aria-hidden>
-            <div className="h-[46px] rounded-xl border border-[#eee] bg-[#fafafa]" />
-            <div className="h-[46px] rounded-xl bg-[#ee4291]/50" />
-          </div>
-        )}
+        <form onSubmit={handleLogin} className="mt-6 space-y-4">
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Admin password"
+            autoComplete="current-password"
+            suppressHydrationWarning
+            className="w-full rounded-xl border border-[#eee] bg-white px-4 py-3 text-[#111] outline-none placeholder:text-[#aaa] focus:border-[#ee4291]"
+          />
+          <button
+            type="submit"
+            className="w-full rounded-xl bg-[#ee4291] py-3 font-semibold text-white"
+          >
+            Enter admin
+          </button>
+        </form>
       </main>
       <ShopOverlays />
       </>
@@ -136,7 +127,6 @@ export default function AdminPage() {
         Upload two image URLs: bottle (top layer) and applied look (bottom layer).
       </p>
 
-      {mounted ? (
       <form
         onSubmit={handleAdd}
         className="mt-8 grid gap-4 rounded-2xl border border-[#f0e0e8] bg-white p-6 shadow-sm sm:grid-cols-2"
@@ -153,7 +143,7 @@ export default function AdminPage() {
             id="colorFamily"
             name="colorFamily"
             defaultValue="Pink"
-            className="mt-1 w-full rounded-xl border border-[#eee] px-4 py-3 outline-none focus:border-[#ee4291]"
+            className="mt-1 w-full rounded-xl border border-[#eee] bg-white px-4 py-3 text-[#111] outline-none focus:border-[#ee4291]"
           >
             {COLOR_FAMILIES.map((c) => (
               <option key={c} value={c}>
@@ -184,7 +174,8 @@ export default function AdminPage() {
           <textarea
             name="description"
             rows={3}
-            className="mt-1 w-full rounded-xl border border-[#eee] px-4 py-3 outline-none focus:border-[#ee4291]"
+            suppressHydrationWarning
+            className="mt-1 w-full rounded-xl border border-[#eee] bg-white px-4 py-3 text-[#111] outline-none placeholder:text-[#aaa] focus:border-[#ee4291]"
           />
         </div>
         <label className="flex items-center gap-2 text-sm sm:col-span-2">
@@ -207,17 +198,6 @@ export default function AdminPage() {
           <p className="text-sm text-[#529a6f] sm:col-span-2">{message}</p>
         )}
       </form>
-      ) : (
-        <div
-          className="mt-8 grid gap-4 rounded-2xl border border-[#f0e0e8] bg-white p-6 shadow-sm sm:grid-cols-2"
-          aria-hidden
-        >
-          {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="h-[46px] rounded-xl bg-[#fafafa]" />
-          ))}
-          <div className="h-[46px] rounded-xl bg-[#ee4291]/40 sm:col-span-2" />
-        </div>
-      )}
 
       <section className="mt-12">
         <h2 className="text-xl font-semibold">Current products ({products.length})</h2>
@@ -279,7 +259,8 @@ function Field({
       <input
         id={name}
         name={name}
-        className="mt-1 w-full rounded-xl border border-[#eee] px-4 py-3 outline-none focus:border-[#ee4291]"
+        suppressHydrationWarning
+        className="mt-1 w-full rounded-xl border border-[#eee] bg-white px-4 py-3 text-[#111] outline-none placeholder:text-[#aaa] focus:border-[#ee4291]"
         {...props}
       />
     </div>

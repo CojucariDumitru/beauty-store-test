@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useClientMounted } from "@/hooks/useClientMounted";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { PAGE_SIZE, SORT_OPTIONS } from "@/lib/catalog";
 import { useCatalog } from "@/context/CatalogContext";
@@ -26,7 +25,6 @@ export function ProductCatalog() {
   } = useCatalog();
 
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-  const mounted = useClientMounted();
 
   const rangeStart = totalCount === 0 ? 0 : (page - 1) * PAGE_SIZE + 1;
   const rangeEnd = Math.min(page * PAGE_SIZE, totalCount);
@@ -54,25 +52,19 @@ export function ProductCatalog() {
             <label className="sr-only" htmlFor="sort">
               Sort products
             </label>
-            {mounted ? (
-              <select
-                id="sort"
-                value={sort}
-                onChange={(e) => setSort(e.target.value as typeof sort)}
-                className="rounded-xl border border-[#f0e0e8] bg-white px-4 py-2.5 text-sm font-medium shadow-sm outline-none transition focus:border-[#ee4291]"
-              >
-                {SORT_OPTIONS.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
-            ) : (
-              <div
-                className="h-[42px] min-w-[9rem] rounded-xl border border-[#f0e0e8] bg-white"
-                aria-hidden
-              />
-            )}
+            <select
+              id="sort"
+              value={sort}
+              onChange={(e) => setSort(e.target.value as typeof sort)}
+              suppressHydrationWarning
+              className="rounded-xl border border-[#f0e0e8] bg-white px-4 py-2.5 text-sm font-medium text-[#111] shadow-sm outline-none transition focus:border-[#ee4291]"
+            >
+              {SORT_OPTIONS.map((opt) => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
 
