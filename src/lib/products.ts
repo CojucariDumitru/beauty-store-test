@@ -1,12 +1,21 @@
 import { promises as fs } from "fs";
 import path from "path";
+import { assetPath } from "@/lib/assetPath";
 import type { Product } from "@/types/product";
 
 const DATA_PATH = path.join(process.cwd(), "data", "products.json");
 
+function withAssetPaths(product: Product): Product {
+  return {
+    ...product,
+    bottleImage: assetPath(product.bottleImage),
+    swatchImage: assetPath(product.swatchImage),
+  };
+}
+
 export async function getProducts(publishedOnly = true): Promise<Product[]> {
   const raw = await fs.readFile(DATA_PATH, "utf-8");
-  const products = JSON.parse(raw) as Product[];
+  const products = (JSON.parse(raw) as Product[]).map(withAssetPaths);
   return publishedOnly ? products.filter((p) => p.published) : products;
 }
 

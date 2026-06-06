@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { assetPath } from "@/lib/assetPath";
 
 type StoreLogoProps = {
   href?: string;
@@ -16,7 +17,7 @@ export function StoreLogo({ href = "/", className = "" }: StoreLogoProps) {
       aria-label="ANOVA home"
     >
       <Image
-        src="/logo.png"
+        src={assetPath("/logo.png")}
         alt="ANOVA"
         width={120}
         height={36}

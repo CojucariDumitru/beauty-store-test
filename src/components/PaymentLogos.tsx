@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { assetPath } from "@/lib/assetPath";
 
 const LOGOS = [
   { id: "visa", src: "/payments/visa.png", label: "Visa" },
@@ -20,7 +21,7 @@ export function PaymentLogos() {
             className={`flex ${CARD} items-center justify-center rounded-lg border border-white/15 bg-white px-2 py-1.5 shadow-md sm:px-2.5`}
           >
             <Image
-              src={src}
+              src={assetPath(src)}
               alt={label}
               width={96}
               height={40}

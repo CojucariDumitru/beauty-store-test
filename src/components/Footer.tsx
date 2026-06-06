@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { assetPath } from "@/lib/assetPath";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import { FooterNewsletterMount } from "@/components/FooterNewsletterMount";
 import { PaymentLogos } from "@/components/PaymentLogos";
@@ -103,7 +104,7 @@ export function Footer() {
         <div className="col-span-2 lg:col-span-4">
           <Link href="/" className="inline-block bg-transparent">
             <Image
-              src="/logo.png"
+              src={assetPath("/logo.png")}
               alt="ANOVA"
               width={160}
               height={48}
