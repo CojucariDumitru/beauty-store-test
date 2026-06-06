@@ -52,9 +52,9 @@ export function Header() {
       }`}
     >
       <div className="mx-auto max-w-7xl px-3 sm:px-6">
-        <div className="relative flex min-h-11 items-center justify-between gap-2 sm:min-h-[3.25rem] sm:gap-4">
+        <div className="grid min-h-11 grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-x-2 sm:min-h-[3.25rem] sm:gap-x-4">
           {/* Left: search + brands */}
-          <div className="z-10 flex min-w-0 flex-1 items-center gap-1.5 sm:gap-3">
+          <div className="z-10 flex min-w-0 items-center gap-1.5 sm:gap-3">
             <button
               type="button"
               onClick={() => setSearchOpen((v) => !v)}
@@ -68,11 +68,11 @@ export function Header() {
               <Search className="h-5 w-5" />
             </button>
 
-            <div className="relative">
+            <div className="relative hidden min-w-0 lg:block">
               <button
                 type="button"
                 onClick={() => setBrandsOpen((v) => !v)}
-                className={`flex items-center gap-1 rounded-xl border px-2.5 py-2 text-xs font-medium transition sm:gap-2 sm:px-4 sm:py-2.5 sm:text-sm ${
+                className={`flex max-w-full items-center gap-1 rounded-xl border px-2.5 py-2 text-xs font-medium transition sm:gap-2 sm:px-3 sm:py-2.5 sm:text-sm ${
                   brandsOpen || filters.brands.length > 0
                     ? "border-[#ee4291] bg-[#ee4291]/5 text-[#ee4291]"
                     : "border-[#f0e0e8] bg-white text-[#555] hover:border-[#ee4291]/40"
@@ -141,13 +141,13 @@ export function Header() {
             </span>
           </div>
 
-          {/* Center logo — single instance, absolutely centered */}
-          <div className="pointer-events-none absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2">
-            <StoreLogo className="pointer-events-auto" />
+          {/* Center logo — reserved column, no overlap with sides */}
+          <div className="flex shrink-0 justify-center px-1 sm:px-2">
+            <StoreLogo />
           </div>
 
           {/* Right actions */}
-          <nav className="z-10 flex flex-1 items-center justify-end gap-2">
+          <nav className="z-10 flex min-w-0 items-center justify-end gap-2">
             <HeaderIconButton
               label="Wishlist"
               count={wishlist.length}
