@@ -13,7 +13,7 @@ export default async function HomePage() {
 
         <section
           id="catalog"
-          className="mx-auto max-w-7xl px-4 py-12 sm:px-6"
+          className="mx-auto max-w-7xl px-3 py-8 sm:px-6 sm:py-12"
         >
           {products.length === 0 ? (
             <div className="rounded-2xl border border-dashed border-[#ee4291]/40 bg-white py-20 text-center">

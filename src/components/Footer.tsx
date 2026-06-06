@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
-import { FooterNewsletter } from "@/components/FooterNewsletter";
+import { FooterNewsletterMount } from "@/components/FooterNewsletterMount";
+import { PaymentLogos } from "@/components/PaymentLogos";
 
 const BRANDS = ["Luna", "Edlen", "Heylove", "Sova"] as const;
 
@@ -31,15 +32,6 @@ const SOCIAL = [
   { label: "Pinterest", href: "https://pinterest.com" },
   { label: "YouTube", href: "https://youtube.com" },
   { label: "TikTok", href: "https://tiktok.com" },
-];
-
-const PAYMENTS = [
-  { name: "Visa", colors: "from-[#1a1f71] to-[#2d3a9e]" },
-  { name: "Mastercard", colors: "from-[#eb001b] to-[#f79e1b]" },
-  { name: "Amex", colors: "from-[#006fcf] to-[#00a1e4]" },
-  { name: "PayPal", colors: "from-[#003087] to-[#009cde]" },
-  { name: "Apple Pay", colors: "from-[#1c1c1e] to-[#3a3a3c]" },
-  { name: "Google Pay", colors: "from-[#4285f4] to-[#34a853]" },
 ];
 
 function SocialIcon({ name }: { name: string }) {
@@ -101,21 +93,21 @@ export function Footer() {
               New colors, restocks, and exclusive offers — straight to your inbox.
             </p>
           </div>
-          <FooterNewsletter />
+          <FooterNewsletterMount />
         </div>
       </div>
 
       {/* Main grid */}
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-2 lg:grid-cols-12 lg:gap-8 lg:py-14">
+      <div className="mx-auto grid max-w-7xl grid-cols-2 gap-8 px-4 py-10 sm:gap-10 sm:px-6 sm:py-12 md:grid-cols-2 lg:grid-cols-12 lg:gap-8 lg:py-14">
         {/* Brand */}
-        <div className="lg:col-span-4">
-          <Link href="/" className="inline-block">
+        <div className="col-span-2 lg:col-span-4">
+          <Link href="/" className="inline-block bg-transparent">
             <Image
               src="/logo.png"
-              alt="Beauty Store"
-              width={180}
-              height={78}
-              className="h-auto w-[160px] brightness-0 invert sm:w-[180px]"
+              alt="ANOVA"
+              width={160}
+              height={48}
+              className="h-10 w-auto sm:h-12"
               unoptimized
             />
           </Link>
@@ -196,7 +188,7 @@ export function Footer() {
         </div>
 
         {/* Contact & location */}
-        <div className="lg:col-span-4">
+        <div className="col-span-2 lg:col-span-4">
           <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-[#ee4291]">
             Visit & contact
           </h3>
@@ -204,7 +196,7 @@ export function Footer() {
             <li className="flex gap-3">
               <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[#ee4291]" />
               <address className="not-italic leading-relaxed">
-                Beauty-Store Flagship
+                ANOVA Flagship
                 <br />
                 2847 Melrose Avenue
                 <br />
@@ -222,10 +214,10 @@ export function Footer() {
             <li className="flex items-center gap-3">
               <Mail className="h-4 w-4 shrink-0 text-[#ee4291]" />
               <a
-                href="mailto:hello@beautystore.com"
+                href="mailto:hello@anova.com"
                 className="transition hover:text-white"
               >
-                hello@beautystore.com
+                hello@anova.com
               </a>
             </li>
             <li className="flex items-start gap-3">
@@ -248,16 +240,7 @@ export function Footer() {
           <p className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-white/40">
             Secure payment methods
           </p>
-          <div className="mt-4 flex flex-wrap items-center justify-center gap-2 sm:gap-3">
-            {PAYMENTS.map((p) => (
-              <span
-                key={p.name}
-                className={`inline-flex min-w-[4.5rem] items-center justify-center rounded-lg bg-gradient-to-br ${p.colors} px-3 py-2 text-[10px] font-bold uppercase tracking-wide text-white shadow-md`}
-              >
-                {p.name}
-              </span>
-            ))}
-          </div>
+          <PaymentLogos />
           <p className="mt-4 text-center text-xs text-white/35">
             All transactions are encrypted and processed securely.
           </p>
@@ -267,7 +250,7 @@ export function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-white/10 bg-black/20">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 py-6 text-center text-xs text-white/40 sm:px-6 md:flex-row md:text-left">
-          <p suppressHydrationWarning>© {year} Beauty-Store. All rights reserved.</p>
+          <p suppressHydrationWarning>© {year} ANOVA. All rights reserved.</p>
           <nav className="flex flex-wrap justify-center gap-4 md:justify-end">
             {LEGAL_LINKS.map((link) => (
               <Link

@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!product) return { title: "Product not found" };
 
   return {
-    title: `${product.name} — ${product.brand} | Beauty-Store`,
+    title: `${product.name} — ${product.brand} | ANOVA`,
     description: product.description,
     openGraph: {
       title: product.name,
@@ -41,9 +41,9 @@ export default async function ProductPage({ params }: Props) {
   return (
     <>
       <SimpleHeader />
-      <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10">
+      <main className="mx-auto max-w-6xl px-3 py-6 sm:px-6 sm:py-10">
         <nav
-          className="flex flex-wrap items-center gap-1 text-sm text-[#ee4291]"
+          className="flex flex-wrap items-center gap-1 text-xs text-[#ee4291] sm:text-sm"
           aria-label="Breadcrumb"
         >
           <Link href="/" className="hover:underline">
@@ -62,14 +62,14 @@ export default async function ProductPage({ params }: Props) {
           <span className="font-medium text-[#444]">{product.name}</span>
         </nav>
 
-        <div className="mt-8 grid gap-10 lg:grid-cols-2 lg:gap-14">
+        <div className="mt-6 grid gap-8 sm:mt-8 sm:gap-10 lg:grid-cols-2 lg:gap-14">
           <ProductGallery product={product} />
 
           <div>
             <p className="text-sm font-semibold uppercase tracking-widest text-[#ee4291]">
               {product.brand}
             </p>
-            <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
+            <h1 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">
               {product.name}
             </h1>
 
@@ -86,7 +86,7 @@ export default async function ProductPage({ params }: Props) {
               </span>
             </div>
 
-            <p className="mt-6 text-4xl font-bold text-[#ee4291]">
+            <p className="mt-6 text-3xl font-bold text-[#ee4291] sm:text-4xl">
               ${product.price.toFixed(2)}
             </p>
             <p

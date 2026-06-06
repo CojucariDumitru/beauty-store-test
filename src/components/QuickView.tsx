@@ -46,7 +46,7 @@ export function QuickView() {
             role="dialog"
             aria-modal="true"
             aria-label={`Quick view: ${product.name}`}
-            className="fixed inset-x-4 top-[8%] z-50 mx-auto max-h-[84vh] max-w-lg overflow-y-auto rounded-2xl bg-white shadow-2xl sm:inset-x-auto sm:left-1/2 sm:w-full sm:-translate-x-1/2"
+            className="fixed inset-x-3 bottom-3 top-auto z-50 mx-auto max-h-[92vh] w-[calc(100%-1.5rem)] max-w-lg overflow-y-auto rounded-2xl bg-white shadow-2xl sm:inset-x-auto sm:bottom-auto sm:left-1/2 sm:top-[8%] sm:w-full sm:-translate-x-1/2"
             initial={reduceMotion ? false : { opacity: 0, y: 40, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.98 }}

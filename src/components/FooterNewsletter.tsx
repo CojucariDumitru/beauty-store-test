@@ -2,7 +2,10 @@
 
 export function FooterNewsletter() {
   return (
-    <div className="flex w-full max-w-md flex-col gap-2 sm:flex-row">
+    <div
+      className="flex w-full max-w-md flex-col gap-2 sm:flex-row"
+      suppressHydrationWarning
+    >
       <label htmlFor="footer-email" className="sr-only">
         Email address
       </label>

@@ -32,7 +32,7 @@ export function CartDrawer() {
           <motion.aside
             role="dialog"
             aria-label="Shopping cart"
-            className="fixed bottom-0 right-0 top-0 z-50 flex w-full max-w-md flex-col bg-white shadow-2xl"
+            className="fixed bottom-0 right-0 top-0 z-50 flex w-full max-w-md flex-col bg-white shadow-2xl sm:max-w-md"
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}

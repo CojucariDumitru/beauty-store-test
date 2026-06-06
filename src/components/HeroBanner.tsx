@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
 
 const SWATCHES = [
@@ -37,8 +37,6 @@ const ORBITS = [
 const VISUAL_CENTER = "68%";
 
 export function HeroBanner() {
-  const reduceMotion = useReducedMotion();
-
   return (
     <section className="relative overflow-hidden bg-[#fce4ec]">
       {/* Seamless background — radial washes, no vertical split */}
@@ -54,11 +52,10 @@ export function HeroBanner() {
         }}
       />
 
-      {!reduceMotion &&
-        SWATCHES.slice(0, 5).map((color, i) => (
+      {SWATCHES.slice(0, 5).map((color, i) => (
           <motion.div
             key={color}
-            className="pointer-events-none absolute rounded-full opacity-30 blur-3xl"
+            className="pointer-events-none absolute hidden rounded-full opacity-30 blur-3xl md:block"
             style={{
               backgroundColor: color,
               width: 100 + (i % 3) * 50,
@@ -84,7 +81,7 @@ export function HeroBanner() {
         aria-hidden
       >
         <motion.div
-          initial={reduceMotion ? false : { opacity: 0 }}
+          initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.12, duration: 0.8 }}
           className="relative h-full w-full"
@@ -103,9 +100,7 @@ export function HeroBanner() {
                 boxShadow: `0 0 ${f.size}px ${f.colorA}55`,
               }}
               animate={
-                reduceMotion
-                  ? undefined
-                  : {
+                {
                       x: [0, f.driftX, 0],
                       y: [0, f.driftY, 0],
                       opacity: [0.35, 0.85, 0.35],
@@ -146,7 +141,7 @@ export function HeroBanner() {
               initial={{ pathLength: 0 }}
               animate={{ pathLength: 1 }}
               transition={{
-                duration: reduceMotion ? 0 : 2.2,
+                duration: 2.2,
                 delay: 0.3,
                 ease: "easeInOut",
               }}
@@ -161,7 +156,7 @@ export function HeroBanner() {
               initial={{ pathLength: 0 }}
               animate={{ pathLength: 1 }}
               transition={{
-                duration: reduceMotion ? 0 : 2.8,
+                duration: 2.8,
                 delay: 0.5,
                 ease: "easeInOut",
               }}
@@ -174,7 +169,7 @@ export function HeroBanner() {
           >
             <motion.div
               className="relative"
-              animate={reduceMotion ? undefined : { rotate: [0, 6, 0, -6, 0] }}
+              animate={{ rotate: [0, 6, 0, -6, 0] }}
               transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
             >
               <svg
@@ -192,34 +187,34 @@ export function HeroBanner() {
                     y2="100%"
                   >
                     <stop offset="0%" stopColor="#EE4291">
-                      {!reduceMotion && (
+                      {
                         <animate
                           attributeName="stop-color"
                           values="#EE4291;#9B7FD4;#4A7FD4;#EE4291"
                           dur="6s"
                           repeatCount="indefinite"
                         />
-                      )}
+                      }
                     </stop>
                     <stop offset="50%" stopColor="#F5D547">
-                      {!reduceMotion && (
+                      {
                         <animate
                           attributeName="stop-color"
                           values="#F5D547;#EE4291;#6BBF8A;#F5D547"
                           dur="6s"
                           repeatCount="indefinite"
                         />
-                      )}
+                      }
                     </stop>
                     <stop offset="100%" stopColor="#4A7FD4">
-                      {!reduceMotion && (
+                      {
                         <animate
                           attributeName="stop-color"
                           values="#4A7FD4;#F5D547;#9B7FD4;#4A7FD4"
                           dur="6s"
                           repeatCount="indefinite"
                         />
-                      )}
+                      }
                     </stop>
                   </linearGradient>
                   <filter id="moonGlow">
@@ -256,7 +251,7 @@ export function HeroBanner() {
             >
               <motion.div
                 className="absolute inset-0"
-                animate={reduceMotion ? undefined : { rotate: 360 }}
+                animate={{ rotate: 360 }}
                 transition={{
                   duration: orbit.speed,
                   repeat: Infinity,
@@ -280,53 +275,34 @@ export function HeroBanner() {
       </div>
 
       {/* Copy — sits above animation, no separate background panel */}
-      <div className="relative z-10 mx-auto flex min-h-[280px] max-w-7xl items-center sm:min-h-[340px] lg:min-h-[400px]">
-        <div className="flex flex-1 flex-col justify-center px-6 py-10 sm:px-10 lg:max-w-[52%] lg:px-14">
-          <motion.p
-            initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-xs font-bold uppercase tracking-[0.3em] text-[#ee4291]"
-          >
+      <div className="relative z-10 mx-auto flex min-h-[220px] max-w-7xl items-center sm:min-h-[300px] lg:min-h-[400px]">
+        <div className="flex flex-1 flex-col justify-center px-4 py-8 sm:px-10 sm:py-10 lg:max-w-[52%] lg:px-14">
+          <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#ee4291]">
             New season
-          </motion.p>
-          <motion.h2
-            initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.08 }}
-            className="mt-3 max-w-md text-3xl font-black leading-tight tracking-tight sm:text-4xl lg:text-5xl"
-          >
+          </p>
+          <h2 className="mt-3 max-w-md text-2xl font-black leading-tight tracking-tight sm:text-4xl lg:text-5xl">
             <span className="text-[#ad1457]">80 shades.</span>
             <br />
             <span className="text-[#880e4f]">One stunning you.</span>
-          </motion.h2>
-          <motion.p
-            initial={reduceMotion ? false : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.15 }}
-            className="mt-4 max-w-sm text-sm text-[#880e4f]/80 sm:text-base"
-          >
+          </h2>
+          <p className="mt-4 max-w-sm text-sm text-[#880e4f]/80 sm:text-base">
             Professional nail polishes from Luna, Edlen, Heylove & Sova — filter
             by color, shop by brand.
-          </motion.p>
-          <motion.div
-            initial={reduceMotion ? false : { opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.22 }}
-            className="mt-6 flex flex-wrap gap-3"
-          >
+          </p>
+          <div className="mt-5 flex flex-wrap gap-2.5 sm:mt-6 sm:gap-3">
             <Link
               href="#catalog"
-              className="rounded-xl bg-[#ee4291] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-[#ee4291]/30 transition hover:bg-[#e13e8a] hover:shadow-xl"
+              className="rounded-xl bg-[#ee4291] px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-[#ee4291]/30 transition hover:bg-[#e13e8a] sm:px-6 sm:py-3"
             >
               Shop all polishes
             </Link>
             <Link
               href="/?brand=Luna"
-              className="rounded-xl border-2 border-white/80 bg-white/50 px-6 py-3 text-sm font-semibold text-[#c2185b] backdrop-blur-sm transition hover:bg-white"
+              className="rounded-xl border-2 border-white/80 bg-white/50 px-5 py-2.5 text-sm font-semibold text-[#c2185b] backdrop-blur-sm transition hover:bg-white sm:px-6 sm:py-3"
             >
               Explore Luna
             </Link>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

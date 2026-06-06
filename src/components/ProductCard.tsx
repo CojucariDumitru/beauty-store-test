@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { Eye, Heart, ShoppingBag } from "lucide-react";
 import type { Product } from "@/types/product";
@@ -16,8 +15,7 @@ type ProductCardProps = {
   index?: number;
 };
 
-export function ProductCard({ product, index = 0 }: ProductCardProps) {
-  const reduceMotion = useReducedMotion();
+export function ProductCard({ product }: ProductCardProps) {
   const [view, setView] = useState<RevealView>("bottle");
   const {
     addToCart,
@@ -27,14 +25,15 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
   } = useShop();
   const saved = isInWishlist(product.id);
 
+  function handleCardTap(e: React.MouseEvent) {
+    if (window.matchMedia("(hover: none)").matches) {
+      e.preventDefault();
+      setView((v) => (v === "bottle" ? "applied" : "bottle"));
+    }
+  }
+
   return (
-    <motion.article
-      initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-      whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.45, delay: index * 0.08 }}
-      className="group flex flex-col"
-    >
+    <article className="group flex flex-col">
       <div
         className="relative overflow-hidden rounded-2xl border border-[#f0e0e8] bg-white shadow-[0_4px_16px_#ebeff0] transition-shadow duration-300 group-hover:shadow-[0_12px_32px_rgba(238,66,145,0.18)]"
         style={{
@@ -43,7 +42,11 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
         onMouseEnter={() => setView("applied")}
         onMouseLeave={() => setView("bottle")}
       >
-        <Link href={`/product/${product.id}`} className="block">
+        <Link
+          href={`/product/${product.id}`}
+          className="block"
+          onClick={handleCardTap}
+        >
           <ProductRevealDisplay
             product={product}
             view={view}
@@ -57,7 +60,12 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
                 : "bg-white/80 text-[#888]"
             }`}
           >
-            {view === "applied" ? "On nails" : "Hover to preview"}
+            <span className="sm:hidden">
+              {view === "applied" ? "On nails" : "Tap to preview"}
+            </span>
+            <span className="hidden sm:inline">
+              {view === "applied" ? "On nails" : "Hover to preview"}
+            </span>
           </span>
 
           {!product.inStock && (
@@ -67,7 +75,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
           )}
         </Link>
 
-        <div className="absolute bottom-3 right-3 z-30 flex gap-2 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+        <div className="absolute bottom-3 right-3 z-30 flex gap-1.5 opacity-100 transition-opacity duration-200 sm:gap-2 sm:opacity-0 sm:group-hover:opacity-100">
           <IconButton
             label="Quick view"
             onClick={() => openQuickView(product)}
@@ -105,12 +113,12 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
           </p>
         </div>
         <Link href={`/product/${product.id}`} className="group/title block">
-          <h3 className="mt-1 font-medium text-[#111] transition-colors group-hover/title:text-[#ee4291]">
+          <h3 className="mt-1 line-clamp-2 text-sm font-medium text-[#111] transition-colors group-hover/title:text-[#ee4291] sm:text-base">
             {product.name}
           </h3>
         </Link>
         <div className="mt-2 flex items-center justify-between gap-2">
-          <p className="text-lg font-semibold text-[#ee4291]">
+          <p className="text-base font-semibold text-[#ee4291] sm:text-lg">
             ${product.price.toFixed(2)}
           </p>
           <Link
@@ -121,7 +129,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
           </Link>
         </div>
       </div>
-    </motion.article>
+    </article>
   );
 }
 

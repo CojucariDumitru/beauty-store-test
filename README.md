@@ -1,4 +1,4 @@
-# Beauty-Store — Test Build
+# ANOVA — Test Build
 
 **This is a disposable test version.** Delete the entire `beauty-store-test` folder if it doesn't meet your expectations.
 

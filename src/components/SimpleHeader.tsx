@@ -12,7 +12,7 @@ export function SimpleHeader() {
     <header className="sticky top-0 z-40 border-b border-[#f0e0e8] bg-white/90 py-3 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6">
         <BackToShopLink />
-        <StoreLogo size="sm" />
+        <StoreLogo />
         <nav className="flex gap-2">
           <button
             type="button"

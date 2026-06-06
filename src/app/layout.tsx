@@ -10,9 +10,15 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Beauty-Store — Nail Polish (Test)",
+  title: "ANOVA — Nail Polish",
   description:
-    "Test build — animated nail polish storefront with quickview, cart, and wishlist.",
+    "ANOVA — animated nail polish storefront with quickview, cart, and wishlist.",
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({

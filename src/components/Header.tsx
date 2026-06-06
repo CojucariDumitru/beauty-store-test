@@ -14,7 +14,6 @@ import { useShop } from "@/context/ShopContext";
 import { useCatalog } from "@/context/CatalogContext";
 import { getUniqueBrands } from "@/lib/catalog";
 import { StoreLogo } from "@/components/StoreLogo";
-
 export function Header() {
   const { cartCount, wishlist, setCartOpen, setWishlistOpen } = useShop();
   const {
@@ -52,10 +51,10 @@ export function Header() {
           : "border-transparent bg-white/80 py-4 backdrop-blur-md"
       }`}
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="flex items-center justify-between gap-4">
+      <div className="mx-auto max-w-7xl px-3 sm:px-6">
+        <div className="relative flex min-h-11 items-center justify-between gap-2 sm:min-h-[3.25rem] sm:gap-4">
           {/* Left: search + brands */}
-          <div className="flex min-w-0 flex-1 items-center gap-2 sm:gap-3">
+          <div className="z-10 flex min-w-0 flex-1 items-center gap-1.5 sm:gap-3">
             <button
               type="button"
               onClick={() => setSearchOpen((v) => !v)}
@@ -69,17 +68,18 @@ export function Header() {
               <Search className="h-5 w-5" />
             </button>
 
-            <div className="relative hidden sm:block">
+            <div className="relative">
               <button
                 type="button"
                 onClick={() => setBrandsOpen((v) => !v)}
-                className={`flex items-center gap-2 rounded-xl border px-4 py-2.5 text-sm font-medium transition ${
+                className={`flex items-center gap-1 rounded-xl border px-2.5 py-2 text-xs font-medium transition sm:gap-2 sm:px-4 sm:py-2.5 sm:text-sm ${
                   brandsOpen || filters.brands.length > 0
                     ? "border-[#ee4291] bg-[#ee4291]/5 text-[#ee4291]"
                     : "border-[#f0e0e8] bg-white text-[#555] hover:border-[#ee4291]/40"
                 }`}
               >
-                Brands
+                <span className="hidden min-[400px]:inline">Brands</span>
+                <span className="min-[400px]:hidden">Brand</span>
                 {filters.brands.length > 0 && (
                   <span className="rounded-full bg-[#ee4291] px-1.5 py-0.5 text-[10px] font-bold text-white">
                     {filters.brands.length}
@@ -103,7 +103,7 @@ export function Header() {
                       initial={{ opacity: 0, y: -8 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -8 }}
-                      className="absolute left-0 top-full z-40 mt-2 w-52 rounded-2xl border border-[#f0e0e8] bg-white p-2 shadow-xl"
+                      className="absolute left-0 top-full z-40 mt-2 w-48 rounded-2xl border border-[#f0e0e8] bg-white p-2 shadow-xl sm:w-52"
                     >
                       {brands.map((brand) => {
                         const active = filters.brands.includes(brand);
@@ -141,11 +141,13 @@ export function Header() {
             </span>
           </div>
 
-          {/* Center logo */}
-          <StoreLogo size="md" />
+          {/* Center logo — single instance, absolutely centered */}
+          <div className="pointer-events-none absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2">
+            <StoreLogo className="pointer-events-auto" />
+          </div>
 
           {/* Right actions */}
-          <nav className="flex flex-1 items-center justify-end gap-2">
+          <nav className="z-10 flex flex-1 items-center justify-end gap-2">
             <HeaderIconButton
               label="Wishlist"
               count={wishlist.length}
@@ -176,23 +178,25 @@ export function Header() {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.2 }}
               className="overflow-hidden"
             >
               <div className="relative pt-3">
-                <Search className="absolute left-4 top-1/2 mt-1.5 h-4 w-4 -translate-y-1/2 text-[#ccc]" />
+                <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#ccc]" />
                 <input
                   ref={searchRef}
                   type="search"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search by name, brand, or color…"
-                  className="w-full rounded-2xl border border-[#f0e0e8] bg-[#fafafa] py-3 pl-11 pr-10 text-sm outline-none transition focus:border-[#ee4291] focus:bg-white focus:shadow-[0_0_0_3px_rgba(238,66,145,0.12)]"
+                  suppressHydrationWarning
+                  className="w-full rounded-2xl border border-[#f0e0e8] bg-[#fafafa] py-3 pl-11 pr-10 text-sm outline-none transition focus:border-[#ee4291] focus:bg-white"
                 />
                 {searchQuery && (
                   <button
                     type="button"
                     onClick={() => setSearchQuery("")}
-                    className="absolute right-3 top-1/2 mt-1.5 -translate-y-1/2 rounded-full p-1 text-[#999] hover:bg-[#eee]"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1 text-[#999] hover:bg-[#eee]"
                     aria-label="Clear search"
                   >
                     <X className="h-4 w-4" />
@@ -219,27 +223,18 @@ function HeaderIconButton({
   onClick: () => void;
 }) {
   return (
-    <motion.button
+    <button
       type="button"
       aria-label={label}
       onClick={onClick}
-      whileHover={{ scale: 1.06 }}
-      whileTap={{ scale: 0.94 }}
       className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-[#fafafa] text-[#ee4291] transition-colors hover:bg-[#ee4291] hover:text-white sm:h-11 sm:w-11"
     >
       {children}
-      <AnimatePresence>
-        {count > 0 && (
-          <motion.span
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            exit={{ scale: 0 }}
-            className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-[#ee4291] px-1 text-[10px] font-bold text-white shadow-sm"
-          >
-            {count > 99 ? "99+" : count}
-          </motion.span>
-        )}
-      </AnimatePresence>
-    </motion.button>
+      {count > 0 && (
+        <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-[#ee4291] px-1 text-[10px] font-bold text-white shadow-sm">
+          {count > 99 ? "99+" : count}
+        </span>
+      )}
+    </button>
   );
 }

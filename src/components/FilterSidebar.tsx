@@ -214,7 +214,7 @@ export function FilterSidebar({
             className="fixed inset-0 z-50 bg-black/40 lg:hidden"
             onClick={() => onMobileOpenChange(false)}
           />
-          <aside className="fixed bottom-0 left-0 top-0 z-50 w-full max-w-xs bg-white shadow-2xl lg:hidden">
+          <aside className="fixed bottom-0 left-0 top-0 z-50 w-[min(100%,20rem)] max-w-[85vw] bg-white shadow-2xl sm:max-w-xs lg:hidden">
             {sidebarContent}
           </aside>
         </>

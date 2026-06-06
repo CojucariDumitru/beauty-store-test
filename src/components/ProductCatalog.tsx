@@ -38,8 +38,8 @@ export function ProductCatalog() {
 
       <div className="min-w-0 flex-1">
         <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <h2 className="text-2xl font-bold">All polishes</h2>
+          <div className="min-w-0">
+            <h2 className="text-xl font-bold sm:text-2xl">All polishes</h2>
             <p className="mt-1 text-sm text-[#888]">
               Showing {rangeStart}–{rangeEnd} of {totalCount} shades
               {totalCount !== products.length && (
@@ -48,7 +48,7 @@ export function ProductCatalog() {
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex w-full items-center gap-3 sm:w-auto">
             <label className="sr-only" htmlFor="sort">
               Sort products
             </label>
@@ -57,7 +57,7 @@ export function ProductCatalog() {
               value={sort}
               onChange={(e) => setSort(e.target.value as typeof sort)}
               suppressHydrationWarning
-              className="rounded-xl border border-[#f0e0e8] bg-white px-4 py-2.5 text-sm font-medium text-[#111] shadow-sm outline-none transition focus:border-[#ee4291]"
+              className="w-full rounded-xl border border-[#f0e0e8] bg-white px-4 py-2.5 text-sm font-medium text-[#111] shadow-sm outline-none transition focus:border-[#ee4291] sm:w-auto"
             >
               {SORT_OPTIONS.map((opt) => (
                 <option key={opt.value} value={opt.value}>
@@ -120,7 +120,7 @@ export function ProductCatalog() {
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-2 gap-5 sm:gap-6 xl:grid-cols-3">
+            <div className="grid grid-cols-2 gap-3 sm:gap-6 xl:grid-cols-3">
               {paged.map((product, index) => (
                 <ProductCard
                   key={product.id}
@@ -132,7 +132,7 @@ export function ProductCatalog() {
 
             {pageCount > 1 && (
               <nav
-                className="mt-10 flex items-center justify-center gap-2"
+                className="mt-10 flex max-w-full items-center justify-center gap-1 overflow-x-auto px-1 pb-1 sm:gap-2"
                 aria-label="Pagination"
               >
                 <PaginationButton
