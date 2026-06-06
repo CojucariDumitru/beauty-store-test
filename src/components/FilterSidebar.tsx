@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, SlidersHorizontal, X } from "lucide-react";
 import type { ColorFamily } from "@/types/product";
 import {
@@ -206,19 +207,33 @@ export function FilterSidebar({
         </div>
       </aside>
 
-      {mobileOpen && (
-        <>
-          <button
-            type="button"
-            aria-label="Close filters"
-            className="fixed inset-0 z-50 bg-black/40 lg:hidden"
-            onClick={() => onMobileOpenChange(false)}
-          />
-          <aside className="fixed bottom-0 left-0 top-0 z-50 w-[min(100%,20rem)] max-w-[85vw] bg-white shadow-2xl sm:max-w-xs lg:hidden">
-            {sidebarContent}
-          </aside>
-        </>
-      )}
+      <AnimatePresence>
+        {mobileOpen && (
+          <>
+            <motion.button
+              type="button"
+              aria-label="Close filters"
+              className="fixed inset-0 z-50 bg-black/40 lg:hidden"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => onMobileOpenChange(false)}
+            />
+            <motion.aside
+              role="dialog"
+              aria-label="Filters"
+              className="fixed bottom-0 left-0 top-0 z-50 w-[min(100%,20rem)] max-w-[85vw] bg-white shadow-2xl sm:max-w-xs lg:hidden"
+              initial={{ x: "-100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
+              transition={{ type: "spring", stiffness: 380, damping: 36 }}
+            >
+              {sidebarContent}
+            </motion.aside>
+          </>
+        )}
+      </AnimatePresence>
     </>
   );
 }
