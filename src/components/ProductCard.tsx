@@ -53,21 +53,6 @@ export function ProductCard({ product }: ProductCardProps) {
             imageSizes="(max-width: 768px) 50vw, 25vw"
           />
 
-          <span
-            className={`pointer-events-none absolute bottom-3 left-1/2 z-20 -translate-x-1/2 rounded-full px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider backdrop-blur-sm transition ${
-              view === "applied"
-                ? "bg-black/50 text-white"
-                : "bg-white/80 text-[#888]"
-            }`}
-          >
-            <span className="sm:hidden">
-              {view === "applied" ? "On nails" : "Tap to preview"}
-            </span>
-            <span className="hidden sm:inline">
-              {view === "applied" ? "On nails" : "Hover to preview"}
-            </span>
-          </span>
-
           {!product.inStock && (
             <span className="absolute left-3 top-3 z-30 rounded-full bg-black/70 px-2.5 py-1 text-xs font-medium text-white">
               Out of stock
